@@ -3,11 +3,19 @@ extends layout
 block menu
     ul(class='menu')
         li
-            a(href='/', title='Index Page', class='active') Index
+            a(href='/', title='Creator Page', class='active') Chart Creator
         li
             a(href='/license', title='The MIT License') The MIT License
         div(class='clear')
 
 block content
-    section(class='content c-index')
-        p Hello World
+    section(class='content c-creator')
+        h1 Create a new chart
+        div(id='main_chart', class='infoviz')
+        h2 Global Styles
+
+        h2 Chart Styles
+
+    script(type='text/javascript', src='/js/raphael.min.js')
+    script(type='text/javascript', src='/js/sea.min.js')
+    script(type='text/javascript', src='/js/page.creator.js')
