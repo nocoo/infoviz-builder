@@ -12,10 +12,10 @@ block content
     section(class='content c-creator')
         h1 Create a new chart
         div(id='main_chart', class='infoviz')
-        h2 Global Styles
+        include common.style.global.jade
 
         h2 Chart Styles
-
+    script(type='text/javascript', src='/js/jquery.min.js')
     script(type='text/javascript', src='/js/raphael.min.js')
     script(type='text/javascript', src='/js/sea.min.js')
     script(type='text/javascript', src='/js/page.creator.js')
