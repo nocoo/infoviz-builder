@@ -26,14 +26,25 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 .p-front { background: #F0F0F0; font-family: 'Lucida Grande', Helvetica, Arial, sans-serif; }
 .p-front a { color: #999; }
-.p-front header { height: 80px; margin: 0 10px; background: #FDFDFD; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom: 1px solid #EEE; }
-.p-front header h1 { margin: 10px; padding-top: 10px; }
+.p-front header { height: 60px; margin: 0 10px; background: #FDFDFD; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom: 1px solid #EEE; }
+.p-front header h1 { margin: 10px; }
 .p-front header a { width: 100px; height: 60px; display: block; background: url('/images/infoviz_logo_small.png') center no-repeat; background-image: -webkit-image-set(url('/images/infoviz_logo_small.png') 1x, url('/images/infoviz_logo_small@2x.png') 2x); }
-.p-front .container { background: #FDFDFD; margin: 0 10px; padding: 10px; }
+.p-front .container { background: #FDFDFD; margin: 0 10px; padding: 0; }
 .p-front .container h1 { font-size: 1.5em; margin-left: 10px; padding-top: 30px; color: #333; }
 .p-front .container h2 { margin-left: 10px; line-height: 36px; padding-top: 10px; color: #555; -webkit-margin-before: 0; -webkit-margin-after: 0; }
 .p-front .container h2 a { float: right; margin-right: 10px; font-size: 12px; text-decoration: none; }
 .p-front .container h2 a:hover { text-decoration: underline; }
+.p-front .container .content { padding: 20px 10px; }
 .p-front footer { height: 28px; margin: 0 10px 10px 10px; background: #FDFDFD; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top: 1px solid #EEE; }
 .p-front footer p { color: #999; text-align: center; font-size: 12px; line-height: 30px; }
 .p-front a.fork { position: absolute; top: 0; right: 0; border: 0; width: 140px; height: 140px; display: block; background: url('../images/forkme.png') center no-repeat; background-image: -webkit-image-set(url('/images/forkme.png') 1x, url('/images/forkme@2x.png') 2x); }
+.p-front ul.menu { border-bottom: 1px solid #EEE; }
+.p-front ul.menu li { float: left; margin: 0px 4px 0 0; }
+.p-front ul.menu li.right { float: right; }
+.p-front ul.menu a { text-decoration: none; color: #104386; text-align: center; display: block; font-size: 14px; line-height: 30px; padding: 0 12px; border: none; }
+.p-front ul.menu a:hover { background: #EEE; text-decoration: underline; }
+.p-front ul.menu a.active { background: #eb540a; color: #FFF; }
+
+/* License page */
+.c-license h1 { margin-bottom: 20px; }
+.c-license p { margin-left: 10px; font-size: 14px; color: #333; line-height: 20px; margin-bottom: 20px; }

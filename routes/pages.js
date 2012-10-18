@@ -6,5 +6,9 @@
 */
 
 exports.index = function (req, res) {
-    res.render('index', { title: 'Welcome - My InfoViz' });
+    res.render('index.jade', { title: 'Welcome - My InfoViz' });
+};
+
+exports.license = function (req, res) {
+    res.render('license.jade', { title: 'The MIT License - My InfoViz' });
 };
