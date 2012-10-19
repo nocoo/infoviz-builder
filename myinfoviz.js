@@ -28,7 +28,6 @@ app.configure('development', function(){
 });
 
 app.get('/', pages.index);
-app.get('/license', pages.license);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("my-infoviz server listening on port " + app.get('port'));

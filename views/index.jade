@@ -3,14 +3,25 @@ extends layout
 block menu
     ul(class='menu')
         li
-            a(href='/', title='Creator Page', class='active') Chart Creator
+            a(href='http://infoviz.org', title='Controls') Controls
         li
-            a(href='/license', title='The MIT License') The MIT License
+            a.active(href='/', title='Creator') Creator
+        li
+            a(href='https://github.com/nocoo/InfoViz', title='Documentation') Documentation
+        li
+            a(href='http://infoviz.org/test/index.html', title='Test') Test
+        li
+            a(href='http://infoviz.org/history.html', title='History') History
+        li
+            a(href='https://github.com/nocoo/InfoViz/tags', title='Downloads') Downloads
+        li
+            a(href='http://infoviz.org/license.html', title='The MIT License') The MIT License
         div(class='clear')
 
 block content
     section(class='content c-creator')
         h1 Create a new chart
+        include common.charts.jade
         div(id='main_chart', class='infoviz')
         include common.style.global.jade
 
