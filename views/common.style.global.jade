@@ -1,20 +1,28 @@
-section(class='globalstyles')
-    h2 Global Styles
-    h3 layout
-    ul(class='stylelist l-layout')
-        li
-            span.name padding-top
-            input(type='text')
-            a.color-box
-            span.unit
-    h3 grid
-    ul(class='stylelist l-grid')
-    h3 legend
-    ul(class='stylelist l-legend')
-    h3 tooltip
-    ul(class='stylelist l-tooltip')
-    h3 color
-    ul(class='stylelist l-color')
-    div.controls
-        a.btn.save(href='#') Save
-    div.clear
+section(class='globalstyles styles')
+    h2.global Global Styles
+    div.container
+        h3 layout
+        ul(class='stylelist l-layout')
+            li.normal
+                span.name padding-top
+                input(type='text')
+                a.color-box
+                span.unit
+            li.color
+                span.color color
+                input.color(type='text')
+                a.color-box
+                input.dark(type='text')
+                input.light(type='text')
+                span.unit
+        h3 grid
+        ul(class='stylelist l-grid')
+        h3 legend
+        ul(class='stylelist l-legend')
+        h3 tooltip
+        ul(class='stylelist l-tooltip')
+        h3 color
+        ul(class='stylelist l-color')
+        div.controls
+            a.btn.save(href='#') Save
+        div.clear

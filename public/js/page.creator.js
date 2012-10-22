@@ -3,7 +3,13 @@
     /*global seajs*/
     $(document).ready(function() {
         seajs.use(['/js/infoviz.js', '/js/infoviz.worldmap.js'], function(InfoViz) {
-            var i, j, item;
+            var i, j, item, element, value, speed = 300;
+            var current_chart_type;
+            var pvtemplate = $('.globalstyles ul.l-layout li.normal').clone();
+            var colortemplate = $('.globalstyles ul.l-layout li.color').clone();
+            var global_style_height, chart_style_height;
+
+            $('.styles ul.stylelist li').remove();
 
             //Logo is disabled by default.
             InfoViz.enable_logo();
@@ -13,7 +19,7 @@
                 'layout': { 'background-color': '#FFF', 'logo-url': '../images/infoviz_logo_tiny.png' }
             });
 
-            var draw_chart = function(type) {
+            var draw_chart = function (type) {
                 var data = {};
 
                 switch (type) {
@@ -546,41 +552,61 @@
                 InfoViz.chart('main_chart', type, data);
             };
 
-            var current_chart_type;
-            var change_chart_type = function(type) {
+            var change_chart_type = function (type) {
                 if ($('ul.chart-list li.' + type).length > 0) {
                     $('ul.chart-list li').removeClass('active');
                     $('ul.chart-list li.' + type).addClass('active');
                     draw_chart(type);
                     current_chart_type = type;
+                    load_type_styles(type);
                 }
             };
 
-            // Chart list.
-            $('ul.chart-list li').off('click');
-            $('ul.chart-list li').on('click', function(evt) {
-                change_chart_type(evt.target.className);
-            });
+            var load_type_styles = function (type) {
+                console.log('load styles for: ' + type);
+                $('.chartstyles ul.stylelist li').remove();
 
-            // Generate global style.
-            if ($('ul.stylelist').length > 0) {
-                var todo = ['layout', 'grid', 'legend', 'tooltip'];
-                var template = $('.globalstyles ul.l-layout li').clone();
+                var obj = window.InfoViz.options[type];
+                if (obj && typeof(obj) === 'object') {
+                    for (item in obj) {
+                        if (!obj.hasOwnProperty(item)) {
+                            continue;
+                        }
 
-                var save = function() {
-                    var options = {}, item, element, value;
-                    for (var i = 0; i < todo.length; ++i) {
-                        options[todo[i]] = {};
+                        element = pvtemplate.clone();
+                        value = obj[item];
+                        $(element).find('span.name').text(item);
+                        $(element).find('input').attr('id', 'cv_' + item.replace('-', '_'));
+                        $(element).find('input').attr('value', value);
 
-                        for (item in window.InfoViz.options[todo[i]]) {
-                            element = $('#gv_' + todo[i].replace('-', '_') + item.replace('-', '_'));
+                        if (typeof (value) === 'string' && value.indexOf('#') === 0) {
+                            $(element).find('a.color-box').css('background', value);
+                        }
+
+                        $('.chartstyles ul.stylelist').append(element);
+                    }
+
+                    chart_style_height = $('.chartstyles div.container').height();
+
+                    // Save button
+                    $('.chartstyles .controls .btn.save').off('click');
+                    $('.chartstyles .controls .btn.save').on('click', function (evt) {
+                        var options = {};
+                        options[type] = {};
+
+                        for (item in obj) {
+                            if (!obj.hasOwnProperty(item)) {
+                                continue;
+                            }
+
+                            element = $('#cv_' + item.replace('-', '_'));
                             value = element.attr('value');
 
                             if (value === '') {
                                 value = undefined;
                             }
 
-                            if (window.InfoViz.options[todo[i]][item] === true || window.InfoViz.options[todo[i]][item] === false) {
+                            if (obj[item] === true || obj[item] === false) {
                                 value = !!value;
                             }
 
@@ -588,21 +614,32 @@
                                 value = parseInt(value, 10);
                             }
 
-                            options[todo[i]][item] = value;
+                            options[type][item] = value;
                         }
-                    }
 
-                    InfoViz.global_option(options);
-                    InfoViz.clear('main_chart', true);
-                    draw_chart();
-                };
+                        InfoViz.global_option(options);
+                        InfoViz.clear('main_chart', true);
+                        draw_chart(current_chart_type);
 
-                var reset = function() {
-                    $('.globalstyles ul.stylelist li').remove();
+                        return false;
+                    });
+                }
+            };
+
+            var load_global_styles = function () {
+                // Generate global style.
+                if ($('ul.stylelist').length > 0) {
+                    var todo = ['layout', 'grid', 'legend', 'tooltip'];
+                    var color = 'color';
+
+                    // Property-value setting
                     for (var i = 0; i < todo.length; ++i) {
-                        var item, element, value;
                         for (item in window.InfoViz.options[todo[i]]) {
-                            element = template.clone();
+                            if (!window.InfoViz.options[todo[i]].hasOwnProperty(item)) {
+                                continue;
+                            }
+
+                            element = pvtemplate.clone();
                             value = window.InfoViz.options[todo[i]][item];
                             $(element).find('span.name').text(item);
                             $(element).find('input').attr('id', 'gv_' + todo[i].replace('-', '_') + item.replace('-', '_'));
@@ -615,18 +652,108 @@
                             $('.globalstyles ul.l-' + todo[i]).append(element);
                         }
                     }
-                };
 
-                reset();
-                change_chart_type('linechart');
+                    // Color setting
+                    for (i = 0; i < window.InfoViz.options[color].length; ++i) {
+                        item = window.InfoViz.options[color][i];
+                        element = colortemplate.clone();
+                        $(element).find('input.color').attr('id', 'gv_color_color' + i);
+                        $(element).find('input.color').attr('value', item['color']);
+                        $(element).find('a.color-box').css('background', item['color']);
+                        $(element).find('input.dark').attr('id', 'gv_color_dark' + i);
+                        $(element).find('input.dark').attr('value', item['dark-alpha']);
+                        $(element).find('input.light').attr('id', 'gv_color_light' + i);
+                        $(element).find('input.light').attr('value', item['light-alpha']);
 
+                        $('.globalstyles ul.l-color').append(element);
+                    }
+
+                    // Save button
+                    $('.globalstyles .controls .btn.save').off('click');
+                    $('.globalstyles .controls .btn.save').on('click', function (evt) {
+                        var options = {};
+                        for (var i = 0; i < todo.length; ++i) {
+                            options[todo[i]] = {};
+
+                            for (item in window.InfoViz.options[todo[i]]) {
+                                if (!window.InfoViz.options[todo[i]].hasOwnProperty(item)) {
+                                    continue;
+                                }
+
+                                element = $('#gv_' + todo[i].replace('-', '_') + item.replace('-', '_'));
+                                value = element.attr('value');
+
+                                if (value === '') {
+                                    value = undefined;
+                                }
+
+                                if (window.InfoViz.options[todo[i]][item] === true || window.InfoViz.options[todo[i]][item] === false) {
+                                    value = !!value;
+                                }
+
+                                if (parseInt(value, 10).toString() !== 'NaN') {
+                                    value = parseInt(value, 10);
+                                }
+
+                                options[todo[i]][item] = value;
+                            }
+                        }
+
+                        InfoViz.global_option(options);
+                        InfoViz.clear('main_chart', true);
+                        draw_chart(current_chart_type);
+
+                        return false;
+                    });
+                }
+            };
+
+            var init_events = function () {
                 // Events.
-                $('.globalstyles .controls .btn.save').off('click');
-                $('.globalstyles .controls .btn.save').on('click', function(evt) {
-                    save();
-                    return false;
+                $('ul.chart-list li').off('click');
+                $('ul.chart-list li').on('click', function (evt) {
+                    change_chart_type(evt.target.className);
                 });
-            }
+
+                $('.globalstyles h2.global').off('click');
+                $('.globalstyles h2.global').on('click', function (evt) {
+                    var element = $(evt.target).parent().find('div.container');
+
+                    if (!global_style_height) {
+                        global_style_height = element.height();
+                    }
+
+                    element.stop();
+                    if (element.css('display') === 'none') {
+                        element.show();
+                        element.css('height', 0);
+                        element.animate({ 'height': global_style_height }, speed);
+                    } else {
+                        element.animate({ 'height': 0 }, speed, function () {
+                            element.hide();
+                        });
+                    }
+                });
+
+                $('.chartstyles h2.chart').off('click');
+                $('.chartstyles h2.chart').on('click', function (evt) {
+                    var element = $(evt.target).parent().find('div.container');
+                    element.stop();
+                    if (element.css('display') === 'none') {
+                        element.show();
+                        element.css('height', 0);
+                        element.animate({ 'height': chart_style_height }, speed);
+                    } else {
+                        element.animate({ 'height': 0 }, speed, function () {
+                            element.hide();
+                        });
+                    }
+                });
+            };
+
+            change_chart_type('linechart');
+            load_global_styles();
+            init_events();
         });
     });
 }());

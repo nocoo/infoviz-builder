@@ -54,11 +54,11 @@ table { border-collapse: collapse; border-spacing: 0; }
 .c-creator ul.stylelist li span.name { color: #000; width: 170px; display: inline-block; text-align: right; }
 .c-creator ul.stylelist li span.unit { color: #555; margin-right: 10px; }
 .c-creator ul.stylelist li input { width: 60px; height: 20px; padding: 0px 2px; border: 1px solid #CCC; display: inline-block; font-size: 12px; line-height: 20px; margin: 0 4px; text-align: right; outline: none; }
-.c-creator ul.stylelist li a.color-box { width: 10px; height: 22px; display: inline-block; position: relative; top: 6px; margin: 0; }
+.c-creator ul.stylelist li a.color-box { width: 10px; height: 22px; display: inline-block; position: relative; top: 7px; margin: 0; }
 
-.c-creator .globalstyles h3 { margin: 10px 0; text-align: center; }
-.c-creator .globalstyles div.controls { margin: 0 auto; width: 72px; height: 20px; }
-.c-creator .globalstyles a.btn { width: 50px; }
+.c-creator .styles h3 { margin: 10px 0; text-align: center; }
+.c-creator .styles div.controls { margin: 0 auto; width: 72px; height: 20px; }
+.c-creator .styles a.btn { width: 50px; margin-top: 20px; }
 
 .c-creator .charts { margin-bottom: 5px; }
 .c-creator .charts ul.chart-list li { display: inline-block; width: 100px; height: 30px; font-size: 14px; line-height: 30px; border: 1px solid #AAA; text-align: center; color: #555; margin: 2px 10px 2px 0; cursor: pointer; }
