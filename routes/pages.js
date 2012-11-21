@@ -6,5 +6,5 @@
 */
 
 exports.index = function (req, res) {
-    res.render('index.jade', { title: 'Creator - InfoViz' });
+    res.render('index.jade', { title: 'Builder - InfoViz' });
 };
