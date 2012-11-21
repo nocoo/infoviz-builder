@@ -1,5 +1,5 @@
 {
-    "name": "my-infoviz",
+    "name": "infoviz-builder",
     "version": "0.0.1",
     "private": true,
     "scripts": { "start": "node myinfoviz" },

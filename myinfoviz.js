@@ -1,7 +1,7 @@
 /*
-    my-infoviz
+    infoviz-builder
     @copyright 2012  Zheng Li <lizheng@lizheng.me>
-    @github https://github.com/nocoo/my-infoviz
+    @github https://github.com/nocoo/infoviz-builder
     @license MIT
 */
 
@@ -30,5 +30,5 @@ app.configure('development', function(){
 app.get('/', pages.index);
 
 http.createServer(app).listen(app.get('port'), function(){
-    console.log("my-infoviz server listening on port " + app.get('port'));
+    console.log("infoviz-builder server listening on port " + app.get('port'));
 });

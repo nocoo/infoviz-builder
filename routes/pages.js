@@ -1,7 +1,7 @@
 /*
-    my-infoviz
+    infoviz-builder
     @copyright 2012  Zheng Li <lizheng@lizheng.me>
-    @github https://github.com/nocoo/my-infoviz
+    @github https://github.com/nocoo/infoviz-builder
     @license MIT
 */
 

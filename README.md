@@ -1,9 +1,9 @@
 ![InfoViz](http://infoviz.org/images/infoviz_logo.png)
 
-# My InfoViz, the infoviz visualization creator.
+# InfoViz builder, the infoviz visualization creator.
 
-InfoViz creator is under construction.
-Please visit main project, [InfoViz](https://github.com/nocoo/InfoViz) for more information.
+InfoViz builder is under construction.
+Please visit main project, [InfoViz](https://github.com/nocoo/infoviz) for more information.
 
 ### License
 
